@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./icon.png">
+    <title>首頁</title>
+</head>
+<body>
+    <nav class="text-center">
+        <p>Welcome to Shanghai Battle!</p>
+        <a class="ht" href="play.html">玩家留言</a>
+        <a class="ht" href="game.html">玩家參賽</a>
+        <a class="ht" href="tickets.html">網站管理</a>
+    </nav>
+    <main class="text-center">
+        <button id="logoutBtn">登出</button>
+    </main>
+    
+    <a class="logo" href="index.html"><img src="logo.png" alt="LOGO"></a>
+    <script src="./jquery/jquery.js"></script>
+    <script src="./bootstrap/bootstrap.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: 'tickets.php',
+                type: 'GET',
+                success: function(response) {
+                    if(response !== 'loggedin') {
+                        window.location.href = 'tickets.html';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        $("#logoutBtn").click(function () {
+            $.ajax({
+                url: 'tickets.php',
+                type: 'GET',
+                data: { action: 'logout' },
+                success: function (response) {
+                    window.location.href = 'tickets.html';
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
